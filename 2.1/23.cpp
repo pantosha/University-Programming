@@ -1,5 +1,5 @@
 /*
-//Лабораторная работа №2.1
+//Р›Р°Р±РѕСЂР°С‚РѕСЂРЅР°СЏ СЂР°Р±РѕС‚Р° в„–2.1
 //24.02.2012
 */
 
@@ -10,7 +10,7 @@
 
 typedef struct details {
     double Weight;
-    const double Price; //? заработает аль нет
+    const double Price; //? Р·Р°СЂР°Р±РѕС‚Р°РµС‚ Р°Р»СЊ РЅРµС‚
     const char Name[20] ;
 } Details;
 
@@ -20,7 +20,7 @@ typedef enum fructs {
 
 const double Sales = 1.0 - 0.1;
 
-Details Bin[3] = {{0.0, 1.14, "Мандарины"}, {0.0, 1.0, "Персики"}, {0.0, 1.28, "Виноград"}};
+Details Bin[3] = {{0.0, 1.14, "РњР°РЅРґР°СЂРёРЅС‹"}, {0.0, 1.0, "РџРµСЂСЃРёРєРё"}, {0.0, 1.28, "Р’РёРЅРѕРіСЂР°Рґ"}};
 
 void showStatusBar();
 void showMenu();
@@ -41,7 +41,7 @@ void main(){
 
 void about(){
     system("cls");
-    printf("Магазин АшотТоргаш.\n      Покупай, разделяй и кушай!\nКонтактная информация: какой купил, такой использую.\nНайти Гоги, спросить Ашота\n");
+    printf("РњР°РіР°Р·РёРЅ РђС€РѕС‚РўРѕСЂРіР°С€.\n      РџРѕРєСѓРїР°Р№, СЂР°Р·РґРµР»СЏР№ Рё РєСѓС€Р°Р№!\nРљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ: РєР°РєРѕР№ РєСѓРїРёР», С‚Р°РєРѕР№ РёСЃРїРѕР»СЊР·СѓСЋ.\nРќР°Р№С‚Рё Р“РѕРіРё, СЃРїСЂРѕСЃРёС‚СЊ РђС€РѕС‚Р°\n");
     system("pause");
 }
 
@@ -49,18 +49,18 @@ double add(int Fruct){
     double Weight;
 
     showStatusBar();
-    printf("  Покупаем %s.\n\nТекущая масса: %lf\n", Bin[Fruct].Name, Bin[Fruct].Weight);
-    printf("Введите сколько кг вы хотели бы увидеть в корзине: ");
+    printf("  РџРѕРєСѓРїР°РµРј %s.\n\nРўРµРєСѓС‰Р°СЏ РјР°СЃСЃР°: %lf\n", Bin[Fruct].Name, Bin[Fruct].Weight);
+    printf("Р’РІРµРґРёС‚Рµ СЃРєРѕР»СЊРєРѕ РєРі РІС‹ С…РѕС‚РµР»Рё Р±С‹ СѓРІРёРґРµС‚СЊ РІ РєРѕСЂР·РёРЅРµ: ");
 
     scanf_s("%5lf", &Weight);
     fflush(stdin);
     if (Weight >= 0 && Weight < 100.0){
         Bin[Fruct].Weight = Weight;
-        printf("В корзине теперь %2.2lfкг\n", Weight);
+        printf("Р’ РєРѕСЂР·РёРЅРµ С‚РµРїРµСЂСЊ %2.2lfРєРі\n", Weight);
         system("pause");
         return Weight;
     } else {
-        printf("\nВведено неверное значение.");
+        printf("\nР’РІРµРґРµРЅРѕ РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ.");
         system("pause");
         return -1;
     }
@@ -77,24 +77,24 @@ void showBin(){
 void showStatusBar(){
     system("cls");
     printf(" ------------------------------------------------------------------------------\n");
-    printf(" | Мандарины: %.2lfкг | Персики: %.2lfкг | Виноград: %.2lfкг |\n", Bin[Mandarine].Weight, Bin[Peach].Weight, Bin[Grape].Weight);
+    printf(" | РњР°РЅРґР°СЂРёРЅС‹: %.2lfРєРі | РџРµСЂСЃРёРєРё: %.2lfРєРі | Р’РёРЅРѕРіСЂР°Рґ: %.2lfРєРі |\n", Bin[Mandarine].Weight, Bin[Peach].Weight, Bin[Grape].Weight);
     printf(" ------------------------------------------------------------------------------\n");
 }
 
 void showMenu(){
-    printf("1) Заказ мандаринов (кг).\n");
-    printf("2) Заказ персиков (кг).\n");
-    printf("3) Заказ винограда (кг).\n");
+    printf("1) Р—Р°РєР°Р· РјР°РЅРґР°СЂРёРЅРѕРІ (РєРі).\n");
+    printf("2) Р—Р°РєР°Р· РїРµСЂСЃРёРєРѕРІ (РєРі).\n");
+    printf("3) Р—Р°РєР°Р· РІРёРЅРѕРіСЂР°РґР° (РєРі).\n");
 
-    /* Отвечает за сокрытие пунктов меню */
+    /* РћС‚РІРµС‡Р°РµС‚ Р·Р° СЃРѕРєСЂС‹С‚РёРµ РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ */
     if (!(Bin[Mandarine].Weight == 0 && Bin[Peach].Weight == 0 && Bin[Grape].Weight == 0)) {
-        printf("4) Корзина.\n");
-        printf("5) Расчет  стоимости  заказа\n");
+        printf("4) РљРѕСЂР·РёРЅР°.\n");
+        printf("5) Р Р°СЃС‡РµС‚  СЃС‚РѕРёРјРѕСЃС‚Рё  Р·Р°РєР°Р·Р°\n");
     }
-    printf("6) Обратная  связь\n");
-    printf("7) Выход\n");
+    printf("6) РћР±СЂР°С‚РЅР°СЏ  СЃРІСЏР·СЊ\n");
+    printf("7) Р’С‹С…РѕРґ\n");
 
-    printf("Выберите желаемое действие: ");
+    printf("Р’С‹Р±РµСЂРёС‚Рµ Р¶РµР»Р°РµРјРѕРµ РґРµР№СЃС‚РІРёРµ: ");
 }
 
 void showPrice() {
@@ -107,27 +107,27 @@ void showPrice() {
         totalWeight += Bin[i].Weight;
     }
     printf(" ------------------------\n");
-    printf(" Итого %17.2lf$\n", totalPrice);
+    printf(" РС‚РѕРіРѕ %17.2lf$\n", totalPrice);
     if (totalPrice > 100) {
         totalPrice *= Sales;
-        printf(" c учётом скидки %7.2lf$\n", totalPrice);
+        printf(" c СѓС‡С‘С‚РѕРј СЃРєРёРґРєРё %7.2lf$\n", totalPrice);
     }
 
-    printf(" -Наём грузчиков---------\n");
+    printf(" -РќР°С‘Рј РіСЂСѓР·С‡РёРєРѕРІ---------\n");
     if (totalWeight < 5){
         totalPrice += 1.0;
-        printf(" Доставка           1.00$\n");
+        printf(" Р”РѕСЃС‚Р°РІРєР°           1.00$\n");
     } else if (totalWeight < 20) {
         totalPrice += 3.0;
-        printf(" Доставка           3.00$\n");
+        printf(" Р”РѕСЃС‚Р°РІРєР°           3.00$\n");
     } else {
         double shipPrice = (totalWeight - 20) * 2;
         totalPrice += shipPrice + 10;
-        printf(" Доставка     10$ + %5.2lf$\n", shipPrice);
+        printf(" Р”РѕСЃС‚Р°РІРєР°     10$ + %5.2lf$\n", shipPrice);
     }
 
     printf(" ------------------------\n");
-    printf(" ИТОГО: %16.2lf$\n", totalPrice);
+    printf(" РРўРћР“Рћ: %16.2lf$\n", totalPrice);
     printf(" ------------------------\n");
     system("pause");
 }
@@ -159,7 +159,7 @@ void goMenu(){
         break;
     default:
         system("cls"); 
-        printf("Вы промазали. Будьте впредь точнее!\n");
+        printf("Р’С‹ РїСЂРѕРјР°Р·Р°Р»Рё. Р‘СѓРґСЊС‚Рµ РІРїСЂРµРґСЊ С‚РѕС‡РЅРµРµ!\n");
         system("pause");
         break;
     }

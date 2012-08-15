@@ -16,7 +16,7 @@ typedef struct queue {
 } Queue;
 
 Item *newitem(int value);
-void applyQueue(Queue _queue, void (*fn)(Item *, void *), void * arg); //íàä êàæäûì ýëåìåíòîì ôóíêöèè áóäåò ïðîâåäåíà ýêçåêóöèÿ, îïèñàííàÿ â ôóíêöèè (*fn)
+void applyQueue(Queue _queue, void (*fn)(Item *, void *), void * arg); //Ð½Ð°Ð´ ÐºÐ°Ð¶Ð´Ñ‹Ð¼ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð¼ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ Ð±ÑƒÐ´ÐµÑ‚ Ð¿Ñ€Ð¾Ð²ÐµÐ´ÐµÐ½Ð° ÑÐºÐ·ÐµÐºÑƒÑ†Ð¸Ñ, Ð¾Ð¿Ð¸ÑÐ°Ð½Ð½Ð°Ñ Ð² Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ (*fn)
 Item *addback(Item *tail, Item *newp);
 Item *read(Queue *in);
 Queue createQueue(int count);
@@ -55,8 +55,8 @@ void goMenu(size_t *qLen1, size_t *qLen2) {
 
     switch(_getche()) {
     case '1':
-        *qLen1 = getLength("ïåðâîé");
-        *qLen2 = getLength("âòîðîé");
+        *qLen1 = getLength("Ð¿ÐµÑ€Ð²Ð¾Ð¹");
+        *qLen2 = getLength("Ð²Ñ‚Ð¾Ñ€Ð¾Ð¹");
 		break;
     case '2':
         system("cls");
@@ -70,39 +70,39 @@ void goMenu(size_t *qLen1, size_t *qLen2) {
         puts("");
 
         q3 = makeOne(&q1, &q2);
-        applyQueue(q3, printItem, " %d"); //ðèñóåì
+        applyQueue(q3, printItem, " %d"); //Ñ€Ð¸ÑÑƒÐµÐ¼
         puts("");
 
-        applyQueue(q3, freeItem, NULL); //ñòèðàåì
-        system("pause"); //òîðìîçèì
+        applyQueue(q3, freeItem, NULL); //ÑÑ‚Ð¸Ñ€Ð°ÐµÐ¼
+        system("pause"); //Ñ‚Ð¾Ñ€Ð¼Ð¾Ð·Ð¸Ð¼
         break;
     case '3':
-        puts("Îñòîðîæíî, ïðîãà çàêðûâàåòñÿ áåç ïðåäóïðåæäåíèé!");
+        puts("ÐžÑÑ‚Ð¾Ñ€Ð¾Ð¶Ð½Ð¾, Ð¿Ñ€Ð¾Ð³Ð° Ð·Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð±ÐµÐ· Ð¿Ñ€ÐµÐ´ÑƒÐ¿Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ð¹!");
         exit(1);
     default:
-        puts("Áûëà íàæàòà êëàâèøà.");
+        puts("Ð‘Ñ‹Ð»Ð° Ð½Ð°Ð¶Ð°Ñ‚Ð° ÐºÐ»Ð°Ð²Ð¸ÑˆÐ°.");
         break;
     }
 }
 
-void showStatusBar(const int len1, const int len2) { // ïòèöû åù¸ íå ïðèëåòåëè
+void showStatusBar(const int len1, const int len2) { // Ð¿Ñ‚Ð¸Ñ†Ñ‹ ÐµÑ‰Ñ‘ Ð½Ðµ Ð¿Ñ€Ð¸Ð»ÐµÑ‚ÐµÐ»Ð¸
     system("cls");
     repch('-', 80);
-    printf(" | Ëàáîðàòîðíàÿ ðàáîòà ¹5 | Äëèíà î÷åðåäè ¹1: %d, ¹2: %d |\n", len1, len2);
+    printf(" | Ð›Ð°Ð±Ð¾Ñ€Ð°Ñ‚Ð¾Ñ€Ð½Ð°Ñ Ñ€Ð°Ð±Ð¾Ñ‚Ð° â„–5 | Ð”Ð»Ð¸Ð½Ð° Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸ â„–1: %d, â„–2: %d |\n", len1, len2);
     repch('-', 80);
 }
 
 void showMenu() {
-    puts(" 1) Óêàçàòü äëèíó î÷åðåäåé"); //âîò áû òàê â ïîëèêëèíèêå.
-    puts(" 2) Îáúåäèíèòü î÷åðåäè");
-    puts(" 3) Âûõîä");    
+    puts(" 1) Ð£ÐºÐ°Ð·Ð°Ñ‚ÑŒ Ð´Ð»Ð¸Ð½Ñƒ Ð¾Ñ‡ÐµÑ€ÐµÐ´ÐµÐ¹"); //Ð²Ð¾Ñ‚ Ð±Ñ‹ Ñ‚Ð°Ðº Ð² Ð¿Ð¾Ð»Ð¸ÐºÐ»Ð¸Ð½Ð¸ÐºÐµ.
+    puts(" 2) ÐžÐ±ÑŠÐµÐ´Ð¸Ð½Ð¸Ñ‚ÑŒ Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸");
+    puts(" 3) Ð’Ñ‹Ñ…Ð¾Ð´");    
 }
 
 size_t getLength(char *name) {
     size_t length = 0;
     
     system("cls");
-    printf("Ââåäèòå äëèíó %s î÷åðåäè: ", name);
+    printf("Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð»Ð¸Ð½Ñƒ %s Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸: ", name);
     scanf_s("%d", &length);
     fflush(stdin);
     return length;
@@ -122,8 +122,8 @@ Item *newitem(int value) {
     return newp;
 }
 
-//êòî êðàéíèé? ß áóäó çà âàìè...
-Item *addback(Item *tail, Item *newp) { //ñêàæåì íàøèì pushêàì ÷èôåðêè
+//ÐºÑ‚Ð¾ ÐºÑ€Ð°Ð¹Ð½Ð¸Ð¹? Ð¯ Ð±ÑƒÐ´Ñƒ Ð·Ð° Ð²Ð°Ð¼Ð¸...
+Item *addback(Item *tail, Item *newp) { //ÑÐºÐ°Ð¶ÐµÐ¼ Ð½Ð°ÑˆÐ¸Ð¼ pushÐºÐ°Ð¼ Ñ‡Ð¸Ñ„ÐµÑ€ÐºÐ¸
 	if (tail == NULL)
         return newp;
     tail->next = newp;
@@ -143,7 +143,7 @@ void add(Queue *in, Item *newp) {
         free(newp);
 }
 
-Item *read(Queue *in) { // âåðòèì popêàìè êàê äåâóøêè ëè÷èêàìè..
+Item *read(Queue *in) { // Ð²ÐµÑ€Ñ‚Ð¸Ð¼ popÐºÐ°Ð¼Ð¸ ÐºÐ°Ðº Ð´ÐµÐ²ÑƒÑˆÐºÐ¸ Ð»Ð¸Ñ‡Ð¸ÐºÐ°Ð¼Ð¸..
     Item *t;
     if (in->head == NULL)
         return NULL;
@@ -168,7 +168,7 @@ Item *read(Item *buf, Item *head) {
     if (count < 1)
         return NULL;
 
-    newqueue->tail = newqueue->head = newitem(1 + random(5)); // à âåäü ìîæíî òàê: newqueue.tail = newqueue.head = addback(newqueue.tail, newitem(1 + random(5)));
+    newqueue->tail = newqueue->head = newitem(1 + random(5)); // Ð° Ð²ÐµÐ´ÑŒ Ð¼Ð¾Ð¶Ð½Ð¾ Ñ‚Ð°Ðº: newqueue.tail = newqueue.head = addback(newqueue.tail, newitem(1 + random(5)));
 	for (int i = 1; i < count; i++) {
         newqueue->tail = addback(newqueue->tail, newitem(random(newqueue->tail->value)));
 	}
@@ -183,7 +183,7 @@ Queue createQueue(int count) {
     if (count < 1)
         return newqueue;
 
-    newqueue.tail = newqueue.head = newitem(1 + random(5)); // à âåäü ìîæíî òàê: newqueue.tail = newqueue.head = addback(newqueue.tail, newitem(1 + random(5)));
+    newqueue.tail = newqueue.head = newitem(1 + random(5)); // Ð° Ð²ÐµÐ´ÑŒ Ð¼Ð¾Ð¶Ð½Ð¾ Ñ‚Ð°Ðº: newqueue.tail = newqueue.head = addback(newqueue.tail, newitem(1 + random(5)));
 	for (int i = 1; i < count; i++) {
         newqueue.tail = addback(newqueue.tail, newitem(random(newqueue.tail->value)));
 	}
@@ -218,18 +218,18 @@ Queue makeOne(Queue *first, Queue *second) {
         unique.tail->next = sv;
         unique.tail = second->tail;
     } else
-        printf("Îáøèáêà...\n");
+        printf("ÐžÐ±ÑˆÐ¸Ð±ÐºÐ°...\n");
 
     return unique;
 
 /*
-    // 1) îïðåäåëÿåì íàèìåíüøèé â äâóõ î÷åðåäÿõ
-    // 2) ïðîâåðÿåì è äîáàâëÿåì èëè íå äîáàâëÿåì â âûõîäíóþ î÷åðåäü
+    // 1) Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÐ¼ Ð½Ð°Ð¸Ð¼ÐµÐ½ÑŒÑˆÐ¸Ð¹ Ð² Ð´Ð²ÑƒÑ… Ð¾Ñ‡ÐµÑ€ÐµÐ´ÑÑ…
+    // 2) Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼ Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ Ð¸Ð»Ð¸ Ð½Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ Ð² Ð²Ñ‹Ñ…Ð¾Ð´Ð½ÑƒÑŽ Ð¾Ñ‡ÐµÑ€ÐµÐ´ÑŒ
     while ((fv = read(first)) > sv) {
         addback();
     }
 
-    while (first->head->next != NULL || second->head->next != NULL) {// íàäîåëî ìó÷àòüñÿ, èñïóñêàÿ êðàñíûå è çîëîòûå èñêðû, â ïîèñêàõ îøèáêè? îíà çäåñü..
+    while (first->head->next != NULL || second->head->next != NULL) {// Ð½Ð°Ð´Ð¾ÐµÐ»Ð¾ Ð¼ÑƒÑ‡Ð°Ñ‚ÑŒÑÑ, Ð¸ÑÐ¿ÑƒÑÐºÐ°Ñ ÐºÑ€Ð°ÑÐ½Ñ‹Ðµ Ð¸ Ð·Ð¾Ð»Ð¾Ñ‚Ñ‹Ðµ Ð¸ÑÐºÑ€Ñ‹, Ð² Ð¿Ð¾Ð¸ÑÐºÐ°Ñ… Ð¾ÑˆÐ¸Ð±ÐºÐ¸? Ð¾Ð½Ð° Ð·Ð´ÐµÑÑŒ..
         if (first->head->value < second->head->value)
             if (first->head->value != unique.tail->value)
 

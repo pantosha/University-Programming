@@ -1,5 +1,5 @@
 /*
-//Лабораторная работа №3.2
+//Р›Р°Р±РѕСЂР°С‚РѕСЂРЅР°СЏ СЂР°Р±РѕС‚Р° в„–3.2
 //20.03.2012
 */
 
@@ -29,15 +29,15 @@ void main() {
 
         switch(_getche()) {
         case '1':
-            rows = getValue("строк", 1, 1001);
-            cols = getValue("столбцов", 1, 38);
+            rows = getValue("СЃС‚СЂРѕРє", 1, 1001);
+            cols = getValue("СЃС‚РѕР»Р±С†РѕРІ", 1, 38);
             pArray = initArray(rows, cols);
 
             if (pArray == NULL) {
                 rows = 0;
                 cols = 0;
 
-                puts("Чертовщина какая-то!");
+                puts("Р§РµСЂС‚РѕРІС‰РёРЅР° РєР°РєР°СЏ-С‚Рѕ!");
                 system("pause");
                 break;
             }
@@ -49,9 +49,9 @@ void main() {
         case '3':
             exit(0);
             break;
-        default: // пальцам рук посвящаю...
+        default: // РїР°Р»СЊС†Р°Рј СЂСѓРє РїРѕСЃРІСЏС‰Р°СЋ...
             system("cls"); 
-            printf("Хорошо, если бы каждый контролировал себя. Будьте впредь точнее!\n");
+            printf("РҐРѕСЂРѕС€Рѕ, РµСЃР»Рё Р±С‹ РєР°Р¶РґС‹Р№ РєРѕРЅС‚СЂРѕР»РёСЂРѕРІР°Р» СЃРµР±СЏ. Р‘СѓРґСЊС‚Рµ РІРїСЂРµРґСЊ С‚РѕС‡РЅРµРµ!\n");
             system("pause");
             break;
         }
@@ -61,22 +61,22 @@ void main() {
 void showStatusBar(int rows, int cols) {
     system("cls");
     printf(" ------------------------------------------------------------------------------\n");
-    printf(" | Программа Соседи | Матрица %dx%d |\n", rows, cols);
+    printf(" | РџСЂРѕРіСЂР°РјРјР° РЎРѕСЃРµРґРё | РњР°С‚СЂРёС†Р° %dx%d |\n", rows, cols);
     printf(" ------------------------------------------------------------------------------\n");
 }
 
 void showMenu(int rows, int cols) {
-    puts(" 1) Задать размерность");
+    puts(" 1) Р—Р°РґР°С‚СЊ СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ");
     if (rows != 0 && cols != 0)
-        puts(" 2) Вывести матрицу");
-    puts(" 3) Выход");
+        puts(" 2) Р’С‹РІРµСЃС‚Рё РјР°С‚СЂРёС†Сѓ");
+    puts(" 3) Р’С‹С…РѕРґ");
 }
 
 int getValue(char *String, int min, int max) {
     int Value = 0;
     do {
         system("cls");
-        printf("Введите количество %s %d < n < %d: ", String, min, max);
+        printf("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ %s %d < n < %d: ", String, min, max);
         scanf_s("%d", &Value);
         fflush(stdin);
     } while (Value < min && Value > max);

@@ -1,75 +1,77 @@
 ; ------------------------------------------------------------------------------
-; ├ЁрЇшър яюф DOS. ╚ёяюы№чєхь ярь Є№ эряЁ ьє■.
+; Графика под DOS. Используем память напрямую.
+; ------------------------------------------------------------------------------
+; Codepage: OEM-866
 ; ------------------------------------------------------------------------------
 LOCALS
 .model small
 .stack 100
 .386
-; ьръЁюё√
+; макросы
 swap macro	dest, src
 	mov AX, dest
 	xchg AX, src
 	mov dest, AX
 endm
-; ╓тхЄр
+; Цвета
 	colBlack		equ		00h
 	colWhite		equ		0Fh
 	colYellow		equ		00001110b
 	colRed			equ		00000100b
 	colRuby			equ		0Ch
 	colBlue			equ		01h
-; ╧хЁхўхэ№ ёЄЁєъЄєЁ
+; Перечень структур
 Line struc
-	x_beg			dw		00h	; эрўры№эр  ъююЁфшэрЄр X
-	y_beg			dw		00h	; эрўры№эр  ъююЁфшэрЄр Y
-	x_end			dw		00h	; ъюэхўэр  ъююЁфшэрЄр X
-	y_end			dw		00h	; ъюэхўэр  ъююЁфшэрЄр Y
-	color			db		00h ; ЎтхЄ
+	x_beg			dw		00h	; начальная координата X
+	y_beg			dw		00h	; начальная координата Y
+	x_end			dw		00h	; конечная координата X
+	y_end			dw		00h	; конечная координата Y
+	color			db		00h ; цвет
 ends
 
 Circle struc
-	x_center		dw		00h	; ЎхэЄЁ X
-	y_center		dw		00h	; ЎхэЄЁ Y
-	radius			dw		00h ; Ёрфшєё юъЁєцэюёЄш
-	col				db		00h ; ЎтхЄ
+	x_center		dw		00h	; центр X
+	y_center		dw		00h	; центр Y
+	radius			dw		00h ; радиус окружности
+	col				db		00h ; цвет
 ends
 
 .data
 	number_line		dw		22h
 	lines			Line	<05h, 64h, 30h, 40h, colWhite>
-					Line	<30h, 40h, 0E0h, 40h, colWhite>	; сюъ ЁръхЄ√, тхЁїэшщ
+					Line	<30h, 40h, 0E0h, 40h, colWhite>	; бок ракеты, верхний
 					Line	<0DFh, 40h, 0F5h, 25h, colWhite>
 					Line	<0F5h, 25h, 0C9h, 25h, colWhite>
 					Line	<0C9h, 25h, 09Dh, 40h, colWhite>
 					Line	<05h, 63h, 30h, 88h, colWhite>
 					Line	<30h, 88h, 30h, 40h, colWhite>
-					Line	<30h, 88h, 0E0h, 88h, colWhite>	; сюъ ЁръхЄ√, эшцэшщ
+					Line	<30h, 88h, 0E0h, 88h, colWhite>	; бок ракеты, нижний
 					Line	<0DFh, 88h, 0F5h, 0A3h, colWhite> 
-					Line	<0F5h, 0A3h, 0C9h, 0A3h, colWhite>	; ёюярЄър
+					Line	<0F5h, 0A3h, 0C9h, 0A3h, colWhite>	; сопатка
 					Line	<0C9h, 0A3h, 09Dh, 88h, colWhite>
-					Line	<0E0h, 89h, 0E0h, 3Fh, colWhite>	; эшцэ   яырёЄшэр
-					Line	<0E0h, 40h, 130h, 2Fh, colRed>	; ъЁрёэ√щ юуюэ№
-					Line	<130h, 2Fh, 100h, 45h, colRed>	; ъЁрёэ√щ юуюэ№
-					Line	<100h, 45h, 135h, 50h, colRed>	; ъЁрёэ√щ юуюэ№
-					Line	<135h, 50h, 0FBh, 62h, colRed>	; ъЁрёэ√щ юуюэ№
-					Line	<0FBh, 62h, 12Fh, 74h, colRed>	; ъЁрёэ√щ юуюэ№
-					Line	<12Fh, 74h, 103h, 7Dh, colRed>	; ъЁрёэ√щ юуюэ№
-					Line	<103h, 7Dh, 136h, 90h, colRed>	; ъЁрёэ√щ юуюэ№
-					Line	<138h, 92h, 0E1h, 88h, colRed>	; ъЁрёэ√щ юуюэ№
-					Line	<0E0h, 49h, 113h, 53h, colRuby>	; юЁрэцхт√щ юуюэ№
-					Line	<113h, 53h, 0E1h, 60h, colRuby>	; юЁрэцхт√щ юуюэ№
-					Line	<0E1h, 60h, 110h, 70h, colRuby>	; юЁрэцхт√щ юуюэ№
-					Line	<110h, 70h, 0E1h, 7Bh, colRuby>	; юЁрэцхт√щ юуюэ№
-					Line	<98d, 94d, 94d, 90d, colWhite>	; ыхтюх єїю
-					Line	<94d, 90d, 93d, 96d, colWhite>	; ыхтюх єїю
-					Line	<102d, 94d, 106d, 90d, colWhite>	; яЁртюх єїю
-					Line	<106d, 90d, 107d, 96d, colWhite>	; яЁртюх єїю
-					Line	<99d, 103d, 88d, 100d, colWhite>	; ыхт√щ єё
-					Line	<99d, 101d, 88d, 103d, colWhite>	; ыхт√щ єё
-					Line	<101d, 103d, 112d, 100d, colWhite>	; яЁрт√щ єё
-					Line	<101d, 101d, 112d, 103d, colWhite>	; яЁрт√щ єё
-					Line	<100d, 103d, 100d, 106d, colRuby>	; эюё
-					Line	<98d, 104d, 103d, 104d, colRuby>	; эюё
+					Line	<0E0h, 89h, 0E0h, 3Fh, colWhite>	; нижняя пластина
+					Line	<0E0h, 40h, 130h, 2Fh, colRed>	; красный огонь
+					Line	<130h, 2Fh, 100h, 45h, colRed>	; красный огонь
+					Line	<100h, 45h, 135h, 50h, colRed>	; красный огонь
+					Line	<135h, 50h, 0FBh, 62h, colRed>	; красный огонь
+					Line	<0FBh, 62h, 12Fh, 74h, colRed>	; красный огонь
+					Line	<12Fh, 74h, 103h, 7Dh, colRed>	; красный огонь
+					Line	<103h, 7Dh, 136h, 90h, colRed>	; красный огонь
+					Line	<138h, 92h, 0E1h, 88h, colRed>	; красный огонь
+					Line	<0E0h, 49h, 113h, 53h, colRuby>	; оранжевый огонь
+					Line	<113h, 53h, 0E1h, 60h, colRuby>	; оранжевый огонь
+					Line	<0E1h, 60h, 110h, 70h, colRuby>	; оранжевый огонь
+					Line	<110h, 70h, 0E1h, 7Bh, colRuby>	; оранжевый огонь
+					Line	<98d, 94d, 94d, 90d, colWhite>	; левое ухо
+					Line	<94d, 90d, 93d, 96d, colWhite>	; левое ухо
+					Line	<102d, 94d, 106d, 90d, colWhite>	; правое ухо
+					Line	<106d, 90d, 107d, 96d, colWhite>	; правое ухо
+					Line	<99d, 103d, 88d, 100d, colWhite>	; левый ус
+					Line	<99d, 101d, 88d, 103d, colWhite>	; левый ус
+					Line	<101d, 103d, 112d, 100d, colWhite>	; правый ус
+					Line	<101d, 101d, 112d, 103d, colWhite>	; правый ус
+					Line	<100d, 103d, 100d, 106d, colRuby>	; нос
+					Line	<98d, 104d, 103d, 104d, colRuby>	; нос
 	number_circle	dw		09h
 	circles			Circle	<9Fh, 20h, 0Ah, colYellow>
 					Circle	<9Ch, 21h, 3h, colYellow>
@@ -77,9 +79,9 @@ ends
 					Circle	<20d, 180d, 6h, colYellow>
 					Circle	<100d, 100d, 18d, colWhite>
 					Circle	<170d, 100d, 18d, colWhite>
-					Circle	<100d, 100d, 7d, 06d> ; ср°ър ъюЄр
-					Circle	<97d, 98d, 3d, 09h> ; ьюЁурыю ъюЄр
-					Circle	<103d, 98d, 3d, 09h> ; ьюЁурыю ъюЄр
+					Circle	<100d, 100d, 7d, 06d> ; башка кота
+					Circle	<97d, 98d, 3d, 09h> ; моргало кота
+					Circle	<103d, 98d, 3d, 09h> ; моргало кота
 .data?
 	movement_X		dw		?
 	movement_Y		dw		?
@@ -118,13 +120,13 @@ draw_lines:
 	call SetTextMode
 jmp exit
 ; ------------------------------------------------------------------------------
-; ╧хЁхтюф DOS т уЁрЇ. Ёхцшь
+; Перевод DOS в граф. режим
 ; ------------------------------------------------------------------------------
 SetGraphicMode proc
-; ┬їюф:
-;	эшўхую
-; ┬√їюф:
-;	эшўхую
+; Вход:
+;	ничего
+; Выход:
+;	ничего
 ; ------------------------------------------------------------------------------
 	push AX
 	mov AX, 13h
@@ -134,13 +136,13 @@ SetGraphicMode proc
 endp
 
 ; ------------------------------------------------------------------------------
-; ╧хЁхтюф DOS т ЄхъёЄют√щ Ёхцшь
+; Перевод DOS в текстовый режим
 ; ------------------------------------------------------------------------------
 SetTextMode proc
-; ┬їюф:
-;	эшўхую
-; ┬√їюф:
-;	эшўхую
+; Вход:
+;	ничего
+; Выход:
+;	ничего
 ; ------------------------------------------------------------------------------
 	push AX
 	mov AX, 0003h
@@ -150,15 +152,15 @@ SetTextMode proc
 endp
 
 ; ------------------------------------------------------------------------------
-; CharAddr. ┬√ўшёыхэшх Їшчшўхёъюую ёьх∙хэш 
-; ёшьтюыр яю чрфрээ√ь ъююЁфшэрЄрь
+; CharAddr. Вычисление физического смещения
+; символа по заданным координатам
 ; ------------------------------------------------------------------------------
 CharAddr proc
-; ┬їюф:
-;	AX - ├юЁшчюэЄры№эр  ъююЁфшэрЄр X
-;	BX - ┬хЁЄшъры№эр  ъююЁфшэрЄр Y
-; ┬√їюф:
-;	DI - ёьх∙хэшх ёшьтюыр яю чрфрээ√ь ъююЁфшэрЄрь
+; Вход:
+;	AX - Горизонтальная координата X
+;	BX - Вертикальная координата Y
+; Выход:
+;	DI - смещение символа по заданным координатам
 ; ------------------------------------------------------------------------------
 	push AX BX DX
 	xchg AX, BX
@@ -166,44 +168,44 @@ CharAddr proc
 	mul DX
 	add AX, BX
 	mov DI, AX
-; ьюцэю х∙╕ ш ёЄЁрэшЎє яюёўшЄрЄ№
+; можно ещё и страницу посчитать
 	pop DX BX AX
 	ret
 endp
 
 ; ------------------------------------------------------------------------------
-; WritePixel. ╟ряшё№ яшъёхы  яю чрфрээ√ь ъююЁфшэрЄрь
+; WritePixel. Запись пикселя по заданным координатам
 ; ------------------------------------------------------------------------------
 WritePixel proc
-; ┬їюф:
-;	AX - уюЁшчюэЄры№эр  ъююЁфшэрЄр
-;	BX - тхЁЄшъры№эр  ъююЁфшэрЄр
-;	DL - ЎтхЄ
+; Вход:
+;	AX - горизонтальная координата
+;	BX - вертикальная координата
+;	DL - цвет
 ; ------------------------------------------------------------------------------
 	push CX DI ES
-; ╧юьх∙рхь т ES ёхуьхэЄ тшфхюсєЇхЁр
+; Помещаем в ES сегмент видеобуфера
 	push 0A000h
 	pop ES
-; ┬√ўшёы хь яюыэюх ёьх∙хэшх ёшьтюыр
+; Вычисляем полное смещение символа
 	call CharAddr
- ; ┬√тюфшь ёшьтюы эр ¤ъЁрээє■ ёЄЁрэшЎє
+ ; Выводим символ на экранную страницу
 	mov ES:[DI], DL
 	pop ES DI CX
 	ret
 endp
 
 ; ------------------------------------------------------------------------------
-; ╨шёютрэшх ышэшш
+; Рисование линии
 ; ------------------------------------------------------------------------------
 DrawLine proc
-; ┬їюф:
-;	SI - єърчрЄхы№ эр ёЄЁєъЄєЁє Line
+; Вход:
+;	SI - указатель на структуру Line
 	push AX CX
 	mov DL, [SI].color
-; эр°ыш ЁрчэшЎє яю X
+; нашли разницу по X
 	mov AX, [SI].x_beg
 	sub AX, [SI].x_end
-; эр°ыш ЁрчэшЎє яю Y
+; нашли разницу по Y
 	mov BX, [SI].y_beg
 	sub BX, [SI].y_end
 
@@ -213,14 +215,14 @@ DrawLine proc
 	neg AX
 	mov s_X, 01h
 @@abs_y:
-	mov s_Y, -01h	; эхяюэ Єэр  яхЁхьхээр 
+	mov s_Y, -01h	; непонятная переменная
 	test BX, BX
 	jns @@is_vertical
 	neg BX
 	mov s_Y, 01h
 @@is_vertical:
-; яЁютхЁър эр тхЁЄшъры№эюёЄ№
-; ш Ёшёютрэшх ышээш т ёыєўрх єфрўш
+; проверка на вертикальность
+; и рисование линни в случае удачи
 	test AX, AX
 	jne @@is_horizont
 	mov CX, BX
@@ -229,25 +231,25 @@ DrawLine proc
 	cmp BX, [SI].y_end
 	jbe @@for_vertical
 	mov BX, [SI].y_end
-; Ёшёєхь тхЁЄшъры№
+; рисуем вертикаль
 @@for_vertical:
 	call WritePixel
 	inc BX
 	loop @@for_vertical
 	jmp @@exit
-; яЁютхЁър эр уюЁшчюэЄры№эюёЄ№
-; ш Ёшёютрэшх ышэшш т ёыєўрх єфрўш
+; проверка на горизонтальность
+; и рисование линии в случае удачи
 @@is_horizont:
 	test BX, BX
 	jne @@general_provision
 	mov CX, AX
 	mov BX, [SI].y_beg
-; яюьх∙рхь т AX ьшэшьры№эє■ ъююЁфшэрЄє X
+; помещаем в AX минимальную координату X
 	mov AX, [SI].x_beg
 	cmp AX, [SI].x_end
 	jbe @@for_horizont
 	mov AX, [SI].x_end
-; Ёшёєхь уюЁшчюэЄры№
+; рисуем горизонталь
 @@for_horizont:
 	call WritePixel
 	inc AX
@@ -255,8 +257,8 @@ DrawLine proc
 	jmp @@exit
 
 @@general_provision:
-; їюЄхыюё№ ъръ ыєў°х, р яюыєўшыюё№ ъръ є ┼уюЁъш
-; чрфр╕ь эрўры№э√х ярЁрьхЄЁ√ яхЁхьхээ√ї
+; хотелось как лучше, а получилось как у Егорки
+; задаём начальные параметры переменных
 	mov movement_X, 00h
 	mov movement_Y, 00h
 	mov delta_x, AX
@@ -265,12 +267,12 @@ DrawLine proc
 	jae @@after_delta
 	mov AX, BX
 @@after_delta:
-	mov delta, AX	; delta - яхЁхьхээр , юЄтхўр■∙р  чр Їшу чэрхЄ ўЄю
-; чруЁєцрхь эрўры№э√х ъююЁфшэрЄ√
+	mov delta, AX	; delta - переменная, отвечающая за фиг знает что
+; загружаем начальные координаты
 	mov AX, [SI].x_beg
 	mov BX, [SI].y_beg
 @@loop:
-; яюшёъ ёыхфє■∙хщ Єюўъш
+; поиск следующей точки
 ; X
 	mov CX, movement_X
 	sub CX, delta_X
@@ -308,8 +310,8 @@ endp
 ; Draws 4 symmetrical circle plots
 ; --------------------------------------------------------------------------------------------------
 Circle_plot proc
-; ┬їюф:
-;	SI - єърчрЄхы№ эр ёЄЁєъЄєЁє Єшяр Circle
+; Вход:
+;	SI - указатель на структуру типа Circle
 	mov DL, [SI].col
 	mov AX, [SI].x_center
 	add AX, S_X
@@ -336,18 +338,18 @@ DrawCircle proc
 	mov movement_X, BX
 	mov S_X, BX
 	mov BX, [SI].radius
-	mov S_Y, BX ; т y - Ёрфшєё
+	mov S_Y, BX ; в y - радиус
 	mov AX, BX
 	shl AX, 01h
-	sub AX, 3 ; т√ўыш шч Ёрфшєёр 3
-	neg AX ; ёфхырыш юЄЁшЎрЄхы№эюх ўшёыю
-	mov movement_X, AX ; яюьхёЄшыш ъєфр-Єю
+	sub AX, 3 ; вычли из радиуса 3
+	neg AX ; сделали отрицательное число
+	mov movement_X, AX ; поместили куда-то
 Circle_while_loop:
 	mov BX, S_X
 	cmp BX, S_Y
 	jnb Circle_end
 	call Circle_plot
-; яюьхэ ыш ьхёЄрьш x ш y
+; поменяли местами x и y
 	swap S_X, S_Y
 	call Circle_plot
 	swap S_X, S_Y
